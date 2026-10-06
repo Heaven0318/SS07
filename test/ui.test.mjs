@@ -14,17 +14,22 @@ class Element {
   attachShadow(){return this.shadowRoot=new Element();} scrollIntoView(){this.scrolled=true;} getClientRects(){return this.hidden?[]:[{}];}
 }
 const flush=()=>new Promise(r=>setImmediate(r));
-function widget(chatFetch) {
+function widget(chatFetch, preview = false) {
   const ids=Object.fromEntries(['panel','reset','close','availability','messages','suggestions','browse','browse-actions','latest','error','error-text','retry','composer','input','send','counter','announce'].map(id=>[id,new Element()]));
   const doc={getElementById:id=>ids[id],createElement:tag=>new Element(tag),documentElement:new Element(),addEventListener(){},querySelectorAll:()=>[]};
   const events={}, sent=[], parent={postMessage:(data,origin)=>sent.push({data,origin})};
   const config={hostOrigins:['https://host.example'],sample:true,navigation:[{id:'about',label:'About'}],links:[]};
-  const context=vm.createContext({document:doc,location:{search:'?hostOrigin=https%3A%2F%2Fhost.example'},parent,window:{addEventListener:(type,fn)=>events[type]=fn},URL,URLSearchParams,AbortController,AbortSignal,matchMedia:()=>({matches:true}),fetch:(path,opts)=>path==='/api/config'?Promise.resolve(new Response(JSON.stringify(config))):path==='/api/status'?Promise.resolve(new Response(JSON.stringify({available:true,message:'Ready'}))):chatFetch(path,opts)});
+  const context=vm.createContext({document:doc,location:{search:'?hostOrigin=https%3A%2F%2Fhost.example'+(preview?'&previewOnly=true':'')},parent,window:{addEventListener:(type,fn)=>events[type]=fn},URL,URLSearchParams,AbortController,AbortSignal,matchMedia:()=>({matches:true}),fetch:(path,opts)=>['/api/config','/preview-config.json'].includes(path)?Promise.resolve(new Response(JSON.stringify(config))):path==='/api/status'?Promise.resolve(new Response(JSON.stringify({available:true,message:'Ready'}))):chatFetch(path,opts)});
   vm.runInContext(readFileSync(new URL('../public/widget.js',import.meta.url),'utf8'),context);
   return {ids,doc,events,parent,sent,context,config};
 }
 const response=(answer='TEST FIXTURE',navigationIds=[])=>new Response(JSON.stringify({answer,navigationIds}));
 const clickSend=(w,text)=>{w.ids.input.value=text;w.ids.send.onclick();};
+test('private static showcase never sends questions to an unconfigured AI backend',async()=>{
+  let calls=0;const w=widget(()=>{calls++;return Promise.resolve(response());},true);await flush();
+  clickSend(w,'Tell me about the developer.');await flush();
+  assert.equal(calls,0);assert.match(w.ids['error-text'].textContent,/has not been sent to an AI provider/);assert.equal(w.ids.messages.children.filter(x=>x.className==='message user').length,1);
+});
 test('empty and duplicate sends blocked; Retry does not duplicate visitor message',async()=>{
   let calls=0,release;
   const w=widget(()=>{calls++;return new Promise(r=>release=r);});await flush();

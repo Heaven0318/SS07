@@ -30,6 +30,10 @@ Preview image: `../ss07-preview.jpg`.
 
 ## Remaining validation before production
 
+### White showcase update
+
+The home page was replaced with a simple white explanatory showcase, public GitHub source links, developer introduction and five repository entries. Metadata was fetched from GitHub's public API for `Heaven0318` on 2026-10-06. No private repositories or portfolio source were read. Public contact is GitHub only. The user selected a private preview. The static build includes only public assets and an explicit unavailable AI state; the Node API remains a separate deployment.
+
 No provider credentials were present. Real AI answers, English/Filipino/Taglish behavior, grounding accuracy, live follow-ups and account/model compatibility remain **unverified**. Synthetic test responses are used only in tests and are never offered as AI answers in the production widget.
 
 No external hosting, DNS, TLS, real portfolio integration, container build, production reverse proxy or persistent hosting disk has been deployed/tested. Test the real host's CSP/frame-ancestors/origins and section IDs, verified external links, touch keyboard and selected provider before production. Public embed settings are not authentication; hard usage caps and dedicated infrastructure remain necessary. Read README for the exact single-instance deployment boundary.

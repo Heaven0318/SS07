@@ -20,7 +20,7 @@
   const launcher = document.createElement('button'); launcher.textContent = '✦  Ask SS07'; launcher.setAttribute('aria-expanded','false'); launcher.setAttribute('aria-label','Open SS07 portfolio assistant');
   const frame = document.createElement('iframe'); frame.title = 'SS07 AI portfolio assistant'; frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); frame.referrerPolicy = 'no-referrer';
   frame.style.display = 'none';
-  frame.src = `${source}/widget.html?hostOrigin=${encodeURIComponent(location.origin)}`;
+  frame.src = `${source}/widget.html?hostOrigin=${encodeURIComponent(location.origin)}${config.previewOnly === true ? '&previewOnly=true' : ''}`;
   const error = document.createElement('div'); error.id = 'error'; error.setAttribute('role','status');
   const errorText = document.createElement('p'); errorText.textContent = 'SS07 could not load. You can still explore this website.';
   const dismiss = document.createElement('button'); dismiss.textContent = 'Close'; dismiss.onclick = () => setOpen(false);

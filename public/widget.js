@@ -2,6 +2,8 @@
 const $ = id => document.getElementById(id);
 const welcome = 'Hi, I’m SS07, your AI portfolio assistant. Ask me about the developer, projects, or how to get in touch.';
 const questions = ['Tell me about the developer.', 'What projects can I explore?', 'What skills are listed?', 'How can I get in touch?'];
+const previewOnly = new URLSearchParams(location.search).get('previewOnly') === 'true';
+const previewNotice = 'Private showcase: the AI backend is not connected yet. Browse the approved sections or visit GitHub.';
 let messages = [], pending = false, failed = false, epoch = 0, controller, publicConfig, token, allowedIds = [], parentOrigin;
 let nearBottom = true;
 try { const u = new URL(new URLSearchParams(location.search).get('hostOrigin')); if (['http:','https:'].includes(u.protocol) && u.origin === u.href.slice(0,-1)) parentOrigin = u.origin; } catch {}
@@ -44,6 +46,7 @@ async function request() {
   const currentEpoch = epoch; controller = new AbortController();
   const waiting = document.createElement('div'); waiting.className = 'waiting'; waiting.textContent = 'SS07 is thinking…'; $('messages').append(waiting); scrollLatest(); announce('SS07 is preparing a reply.');
   try {
+    if (previewOnly) throw Error('AI chat is not connected in this private preview. Your message has not been sent to an AI provider. Use Browse sections or visit GitHub.');
     const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ messages: context() }), signal: AbortSignal.any([controller.signal, AbortSignal.timeout(35000)]) });
     const data = await response.json(); if (epoch !== currentEpoch) return;
     if (!response.ok) throw Error(data.error?.message || 'SS07 could not respond. Please retry.');
@@ -70,6 +73,7 @@ function reset() {
   addMessage('assistant',welcome); controls(); announce('Conversation cleared.'); $('input').focus(); checkStatus();
 }
 async function checkStatus() {
+  if (previewOnly) { $('availability').hidden = false; $('availability').textContent = previewNotice; return; }
   const current = epoch;
   try { const r = await fetch('/api/status', { signal: AbortSignal.timeout(5000) }); if (!r.ok) throw Error(); const s = await r.json(); if (current !== epoch) return;
     $('availability').hidden = s.available; $('availability').textContent = s.message;
@@ -110,7 +114,7 @@ async function init() {
   document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   for (const q of questions) { const b = document.createElement('button'); b.textContent = q; b.onclick = () => submit(q); $('suggestions').append(b); }
   addMessage('assistant',welcome); controls(); checkStatus();
-  try { const r = await fetch('/api/config', { signal: AbortSignal.timeout(5000) }); if (!r.ok) throw Error(); publicConfig = await r.json();
+  try { const r = await fetch(previewOnly ? '/preview-config.json' : '/api/config', { signal: AbortSignal.timeout(5000) }); if (!r.ok) throw Error(); publicConfig = await r.json();
     if (parent !== window && parentOrigin && publicConfig.hostOrigins.includes(parentOrigin)) parent.postMessage({ channel:'ss07',type:'ready' },parentOrigin);
     else { $('availability').hidden = false; $('availability').textContent = 'Open SS07 from its demo or an approved host website.'; }
   } catch { $('availability').hidden = false; $('availability').textContent = 'SS07 configuration could not load. Please reload the page.'; }
