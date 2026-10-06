@@ -1,0 +1,15 @@
+{
+  "sample": true,
+  "developer": { "name": "Sample Developer", "introduction": "This is placeholder portfolio content for the SS07 demo, not the owner's biography.", "background": "Sample: a developer exploring accessible web interfaces.", "skills": ["Sample: HTML", "Sample: CSS", "Sample: JavaScript"] },
+  "projects": [
+    { "name": "Sample Project Atlas", "description": "Demo concept: a searchable collection of project cards. No real project features are asserted.", "navigationId": "projects", "url": null }
+  ],
+  "faqs": [{ "question": "Is the developer available for work?", "answer": "Availability has not been configured. Visit the contact section for the configured route." }],
+  "contact": { "description": "No real contact address is configured. The demo contact section explains what to replace.", "url": null, "navigationId": "contact" },
+  "navigation": [
+    { "id": "about", "label": "About the developer" },
+    { "id": "projects", "label": "Explore projects" },
+    { "id": "skills", "label": "View skills" },
+    { "id": "contact", "label": "Contact information" }
+  ]
+}
