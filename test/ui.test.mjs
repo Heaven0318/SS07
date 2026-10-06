@@ -15,7 +15,7 @@ class Element {
 }
 const flush=()=>new Promise(r=>setImmediate(r));
 function widget(chatFetch, preview = false) {
-  const ids=Object.fromEntries(['panel','reset','close','availability','messages','suggestions','browse','browse-actions','latest','error','error-text','retry','composer','input','send','counter','announce'].map(id=>[id,new Element()]));
+  const ids=Object.fromEntries(['panel','reset','close','availability','messages','suggestions','browse','browse-actions','latest','error','error-text','retry','composer','input','send','counter','announce','privacy'].map(id=>[id,new Element()]));
   const doc={getElementById:id=>ids[id],createElement:tag=>new Element(tag),documentElement:new Element(),addEventListener(){},querySelectorAll:()=>[]};
   const events={}, sent=[], parent={postMessage:(data,origin)=>sent.push({data,origin})};
   const config={hostOrigins:['https://host.example'],sample:true,navigation:[{id:'about',label:'About'}],links:[]};

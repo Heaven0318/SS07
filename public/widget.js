@@ -111,6 +111,7 @@ window.addEventListener('message', e => {
   if (m.type === 'visibility' && typeof m.open === 'boolean' && m.open) $('input').focus();
 });
 async function init() {
+  if (previewOnly) $('privacy').textContent = 'Private preview: no messages are sent to an AI provider. Chat clears on reload.';
   document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   for (const q of questions) { const b = document.createElement('button'); b.textContent = q; b.onclick = () => submit(q); $('suggestions').append(b); }
   addMessage('assistant',welcome); controls(); checkStatus();
