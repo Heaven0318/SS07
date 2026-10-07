@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const welcome = 'Hi, I’m SS07, your AI portfolio assistant. Ask me about the developer, projects, or how to get in touch.';
 const questions = ['Tell me about the developer.', 'What projects can I explore?', 'What skills are listed?', 'How can I get in touch?'];
 const previewOnly = new URLSearchParams(location.search).get('previewOnly') === 'true';
-const previewNotice = 'Private showcase: the AI backend is not connected yet. Browse the approved sections or visit GitHub.';
+const previewNotice = 'Showcase preview: the AI backend is not connected yet. Browse the approved sections or visit GitHub.';
 let messages = [], pending = false, failed = false, epoch = 0, controller, publicConfig, token, allowedIds = [], parentOrigin;
 let nearBottom = true;
 try { const u = new URL(new URLSearchParams(location.search).get('hostOrigin')); if (['http:','https:'].includes(u.protocol) && u.origin === u.href.slice(0,-1)) parentOrigin = u.origin; } catch {}
@@ -111,7 +111,7 @@ window.addEventListener('message', e => {
   if (m.type === 'visibility' && typeof m.open === 'boolean' && m.open) $('input').focus();
 });
 async function init() {
-  if (previewOnly) $('privacy').textContent = 'Private preview: no messages are sent to an AI provider. Chat clears on reload.';
+  if (previewOnly) $('privacy').textContent = 'Showcase preview: no messages are sent to an AI provider. Chat clears on reload.';
   document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   for (const q of questions) { const b = document.createElement('button'); b.textContent = q; b.onclick = () => submit(q); $('suggestions').append(b); }
   addMessage('assistant',welcome); controls(); checkStatus();

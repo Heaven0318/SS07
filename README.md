@@ -1,6 +1,6 @@
 # SS07
 
-An independent AI portfolio support assistant: Node.js API, isolated iframe chat, small public loader, and a standalone sample website. No portfolio repository or infrastructure is used. No visitor accounts, dashboard, transcript database, or runtime npm dependencies.
+I built SS07 to help visitors explore my portfolio, learn about my projects and skills, and find ways to contact me. It includes a Node.js API, isolated iframe chat, small public loader, and a standalone showcase. No portfolio repository or infrastructure is used. No visitor accounts, dashboard, transcript database, or runtime npm dependencies.
 
 ## White showcase and public hosted preview
 
@@ -76,7 +76,7 @@ If your portfolio has CSP, add the SS07 origin to `script-src`, `style-src` (ext
 
 This implementation targets **one long-running Node.js 24 container/service with a dedicated persistent disk**. Host the demo, loader, widget, and API together on SS07's HTTPS origin. It is not a static-only app. SQLite stores only usage controls and requires a disk that survives restarts/deployments. Do not deploy it to ephemeral serverless storage or scale multiple instances against unrelated SQLite files; that would reset/split caps. For horizontal/serverless scaling, replace `Limits` with atomic counters in a separate SS07-owned shared store first.
 
-No paid resources have been provisioned and no remote deployment has been performed. Choose your hosting provider and review its terms/costs yourself. `Dockerfile` and `compose.yaml` are provided for the dedicated container model. For Docker:
+No paid resources have been provisioned and the Node AI backend has not been deployed. Choose your hosting provider and review its terms/costs yourself. `Dockerfile` and `compose.yaml` are provided for the dedicated container model. For Docker:
 
 ```sh
 docker compose up --build -d
