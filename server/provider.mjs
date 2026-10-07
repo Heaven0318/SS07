@@ -13,7 +13,11 @@ export async function callProvider(config, knowledge, messages, fetcher = fetch,
       } } }
     })
   });
-  if (!response.ok) throw Object.assign(Error('AI provider is temporarily unavailable. Please retry or use the contact section.'), { status: 502, code: 'provider_error' });
+  if (!response.ok) {
+    let code; try { code = (await response.json()).error?.code; } catch {}
+    if (['billing_not_active','insufficient_quota','credit_balance_exhausted','organization_spend_limit_exceeded','project_spend_limit_exceeded'].includes(code)) throw Object.assign(Error('SS07 cannot generate replies right now. Please use the contact section or visit GitHub.'), {status:503,code:'provider_billing'});
+    throw Object.assign(Error('AI provider is temporarily unavailable. Please retry or use the contact section.'), { status: 502, code: 'provider_error' });
+  }
   const result = await response.json();
   if (result.status !== 'completed') throw Object.assign(Error('The AI response could not be completed. Try a shorter question.'), { status: 502, code: 'incomplete_response' });
   const output = result.output?.flatMap(x => x.content || []).filter(x => x.type === 'output_text').map(x => x.text).join('');

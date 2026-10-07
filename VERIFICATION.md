@@ -40,3 +40,6 @@ No external hosting, DNS, TLS, real portfolio integration, container build, prod
 
 ## 2026-10-07 delivery
 The showcase audience was changed to public at the user's explicit request. The source was restored into a separate workspace, and all 15 tests passed. The hosted static showcase has no live AI backend or provider credentials.
+
+## Hosted Worker migration
+18 tests pass, including Web Request validation, D1 transactional reservation rollback under simultaneous calls, lease cleanup and provider flow. A dedicated key was securely configured. The real provider test reached OpenAI and returned HTTP 429 billing_not_active; successful AI replies remain blocked by API billing. No purchases were made.

@@ -2,15 +2,13 @@
 
 I built SS07 to help visitors explore my portfolio, learn about my projects and skills, and find ways to contact me. It includes a Node.js API, isolated iframe chat, small public loader, and a standalone showcase. No portfolio repository or infrastructure is used. No visitor accounts, dashboard, transcript database, or runtime npm dependencies.
 
-## White showcase and public hosted preview
+## Public website and hosted AI backend
 
-The public showcase is hosted at https://ss07-portfolio-assistant.cedrickyosh-pereyra.chatgpt.site. This repository contains both that showcase and the separate Node AI backend; only the static showcase is currently hosted. Uploading this source to GitHub does not automatically deploy the AI backend.
+The public website is hosted at https://ss07-portfolio-assistant.cedrickyosh-pereyra.chatgpt.site. The Sites deployment now includes a Worker API and a dedicated D1 usage database, with the existing iframe widget and white showcase. See [HOSTING.md](HOSTING.md) for the hosted architecture, source/build workflow, environment variables and data controls.
 
-The home page now explains SS07 and showcases Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). No repository source, private data, or portfolio infrastructure was reused. Public repository language metadata is labeled as observed technology, not proficiency. The configured contact route is the GitHub profile; no personal email from the connector is included.
+The showcase uses Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). Public language metadata is observed technology, not proficiency. The contact route is GitHub; no private account email or portfolio infrastructure was reused.
 
-The Sites deployment is a **public static showcase**, separate from the Node AI service. It includes the chat interface and approved section navigation. It has no AI backend connection, keys, database or paid resources. It clearly explains that no AI request is sent from this preview. The original Node API remains implemented and tested in this repository and requires separate server deployment to enable real AI replies. Deploy the Node service and configure its host origins before embedding the working assistant into a portfolio.
-
-`npm run build:showcase` creates only public assets in `dist/`. The build marks the hosted iframe as `previewOnly`, ships an explicit public configuration file and excludes server code, `.env`, Git, logs and usage data. `showcase.config.json` holds the preview origin; `.openai/hosting.json` records its Sites identity. Use the Sites workflow to publish future showcase edits. Never move Node/SQLite into ephemeral static hosting. Opening `npm start` locally uses the actual Node backend (not preview mode), with the white page at `/` and the historical sample demo at `/demo.html`.
+A dedicated SS07 provider key is configured securely. The live provider test returned `billing_not_active` on 2026-10-07, so real replies require the user to enable API billing. No successful AI response is simulated. No credits or paid external resources were purchased. Configuration readiness at `/api/status` does not verify provider billing.
 
 ## Run locally
 
@@ -72,11 +70,11 @@ On the SS07 server, set `PUBLIC_ORIGIN` to its exact HTTPS origin and `HOST_ORIG
 
 If your portfolio has CSP, add the SS07 origin to `script-src`, `style-src` (external launcher stylesheet) and `frame-src`. Place public config/theme glue in an allowed external script or use the host's CSP nonce for the inline snippet. Host credentials and private configuration are never required. SS07's widget CSP permits only its own scripts/styles/network, no objects or inline HTML execution.
 
-## Independent deployment
+## Alternative Node container deployment
 
 This implementation targets **one long-running Node.js 24 container/service with a dedicated persistent disk**. Host the demo, loader, widget, and API together on SS07's HTTPS origin. It is not a static-only app. SQLite stores only usage controls and requires a disk that survives restarts/deployments. Do not deploy it to ephemeral serverless storage or scale multiple instances against unrelated SQLite files; that would reset/split caps. For horizontal/serverless scaling, replace `Limits` with atomic counters in a separate SS07-owned shared store first.
 
-No paid resources have been provisioned and the Node AI backend has not been deployed. Choose your hosting provider and review its terms/costs yourself. `Dockerfile` and `compose.yaml` are provided for the dedicated container model. For Docker:
+No paid resources have been provisioned and the Node container has not been deployed; the separate Worker backend is documented in HOSTING.md. Choose your hosting provider and review its terms/costs yourself. `Dockerfile` and `compose.yaml` are provided for the dedicated container model. For Docker:
 
 ```sh
 docker compose up --build -d
