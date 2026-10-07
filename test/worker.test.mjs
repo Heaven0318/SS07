@@ -39,7 +39,7 @@ test('D1 reservations are atomic across simultaneous requests; failed cap checks
   assert.equal(db.db.prepare('SELECT COUNT(*) AS n FROM ss07_leases').get().n,1);
 });
 test('Worker provider flow uses trusted knowledge, filters navigation, records usage and releases leases',async()=>{
-  const db=new D1(),env={DB:db,IP_HASH_SECRET:'x'.repeat(32),OPENAI_API_KEY:'test-only-provider-key'};
+  const db=new D1(),env={DB:db,IP_HASH_SECRET:'x'.repeat(32),AI_PROVIDER:'openai',OPENAI_API_KEY:'test-only-provider-key'};
   const original=globalThis.fetch;
   globalThis.fetch=async(url,options)=>{
     assert.equal(url,'https://api.openai.com/v1/responses');const body=JSON.parse(options.body);assert.equal(body.store,false);assert.match(body.instructions,/Cedrick/);

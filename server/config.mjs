@@ -16,7 +16,9 @@ export function settings(env = process.env) {
   const hosts = (env.HOST_ORIGINS || publicOrigin).split(',').map(x => origin(x.trim()));
   const secret = env.IP_HASH_SECRET || 'ss07-local-development-only';
   if (env.NODE_ENV === 'production' && (secret.length < 32 || !env.IP_HASH_SECRET || !publicOrigin.startsWith('https://') || hosts.some(x => !x.startsWith('https://')))) throw Error('Production requires HTTPS origins and IP_HASH_SECRET (32+ characters)');
-  return { publicOrigin, hosts, secret, key: env.OPENAI_API_KEY || '', model: env.OPENAI_MODEL || 'gpt-4.1-mini',
+  const provider = env.AI_PROVIDER || 'gemini';
+  if (!['gemini','openai'].includes(provider)) throw Error('Invalid AI_PROVIDER');
+  return { publicOrigin, hosts, secret, provider, key: (provider === 'gemini' ? env.GEMINI_API_KEY : env.OPENAI_API_KEY) || '', model: provider === 'gemini' ? env.GEMINI_MODEL || 'gemini-2.5-flash-lite' : env.OPENAI_MODEL || 'gpt-4.1-mini',
     dataDir: resolve(root, env.DATA_DIR || 'data'), port: num('PORT', 3000, 65535),
     dailyRequests: num('DAILY_REQUEST_CAP', 100, 100000), dailyTokens: num('DAILY_TOKEN_BUDGET', 200000, 100000000),
     rate: num('RATE_PER_MINUTE', 6, 1000), globalRate: num('GLOBAL_PER_MINUTE', 30, 10000),

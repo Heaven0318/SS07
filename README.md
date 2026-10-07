@@ -8,7 +8,7 @@ The public website is hosted at https://ss07-portfolio-assistant.cedrickyosh-per
 
 The showcase uses Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). Public language metadata is observed technology, not proficiency. The contact route is GitHub; no private account email or portfolio infrastructure was reused.
 
-A dedicated SS07 provider key is configured securely. The live provider test returned `billing_not_active` on 2026-10-07, so real replies require the user to enable API billing. No successful AI response is simulated. No credits or paid external resources were purchased. Configuration readiness at `/api/status` does not verify provider billing.
+SS07 defaults to Gemini's free API tier. Set an SS07-only GEMINI_API_KEY securely and keep its Google project on the free tier. Provider quotas and account eligibility apply. No automatic paid fallback exists, and no successful AI response is simulated. Configuration readiness does not verify provider access.
 
 ## Run locally
 
@@ -16,15 +16,15 @@ Install Node.js 24 or later. From this directory:
 
 ```powershell
 Copy-Item .env.example .env
-# Edit .env locally to configure your own SS07 OpenAI project key.
+# Edit .env locally to configure your own SS07 Gemini free-tier key.
 npm start
 ```
 
 Open http://localhost:3000. `npm run dev` restarts the server when files change; reload the browser after frontend edits. `npm test` runs backend and browser-script behavioral tests. No npm install or frontend build is required.
 
-With no `OPENAI_API_KEY`, the application runs but honestly displays AI unavailability. It does not simulate AI replies. Configure the key in the ignored `.env` file or hosting secret manager; never paste a key into chat. Use a new provider project/key exclusively for SS07. `OPENAI_MODEL` is server-configurable and must support Responses structured outputs. The example uses `gpt-4.1-mini`; account access must be verified with your provider. The small adapter is `server/provider.mjs`.
+With no `GEMINI_API_KEY`, the application runs but honestly displays AI unavailability. It does not simulate AI replies. Configure the key in the ignored `.env` file or hosting secret manager; never paste a key into chat. Use a new provider project/key exclusively for SS07. AI_PROVIDER defaults to gemini; GEMINI_MODEL defaults to gemini-2.5-flash-lite. OpenAI requires explicit AI_PROVIDER=openai and its own key/model. Account access and quotas must be verified with the provider. The small adapter is `server/provider.mjs`.
 
-The adapter uses the [OpenAI Responses API](https://developers.openai.com/api/reference/typescript/resources/responses/methods/create), structured JSON, `store: false`, no tools, a bounded output allowance and a provider timeout. Live provider testing requires a configured key.
+The optional OpenAI adapter uses the [OpenAI Responses API](https://developers.openai.com/api/reference/typescript/resources/responses/methods/create), structured JSON, `store: false`, no tools, a bounded output allowance and a provider timeout. Live provider testing requires a configured key.
 
 ## Replace demo knowledge
 
@@ -83,8 +83,8 @@ docker compose up --build -d
 Before production:
 
 1. Put this repository in its own Git remote; deploy only SS07, never the portfolio checkout.
-2. Set SS07-only secrets through the host's secret manager: `OPENAI_API_KEY`, `IP_HASH_SECRET` (random, 32+ characters). Example generation: `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`; store the result privately.
-3. Set `NODE_ENV=production`, `PUBLIC_ORIGIN=https://your-ss07-domain`, exact `HOST_ORIGINS`, selected `OPENAI_MODEL`, caps and `DATA_DIR=/app/data` (container default).
+2. Set SS07-only secrets through the host's secret manager: `GEMINI_API_KEY`, `IP_HASH_SECRET` (random, 32+ characters). Example generation: `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`; store the result privately.
+3. Set `NODE_ENV=production`, `PUBLIC_ORIGIN=https://your-ss07-domain`, exact `HOST_ORIGINS`, selected `GEMINI_MODEL`, caps and `DATA_DIR=/app/data` (container default).
 4. Mount a dedicated disk/volume at `/app/data`; back up usage counters if required. Do not use the portfolio's database, volume, accounts, secrets, authentication or hosting config.
 5. Put the service behind your SS07-only HTTPS reverse proxy. Overwrite client forwarding headers at the controlled proxy. Set `TRUST_PROXY=true` only if that proxy is the sole reachable ingress; otherwise keep false. Direct access to the backend must be blocked when trusting forwarded IPs.
 6. Health probe: `GET /api/status` must return HTTP 200. Its `available` flag checks presence of configuration, not provider connectivity. Run a real chat to verify model/key access after deployment.

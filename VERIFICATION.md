@@ -43,3 +43,5 @@ The showcase audience was changed to public at the user's explicit request. The 
 
 ## Hosted Worker migration
 18 tests pass, including Web Request validation, D1 transactional reservation rollback under simultaneous calls, lease cleanup and provider flow. A dedicated key was securely configured. The real provider test reached OpenAI and returned HTTP 429 billing_not_active; successful AI replies remain blocked by API billing. No purchases were made.
+
+The user requested a free AI provider. Gemini support includes bounded JSON output, approved navigation filtering, server-only credentials, quota errors and no automatic paid fallback. Live Gemini verification awaits the dedicated key being saved locally.

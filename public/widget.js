@@ -46,7 +46,7 @@ async function request() {
   const currentEpoch = epoch; controller = new AbortController();
   const waiting = document.createElement('div'); waiting.className = 'waiting'; waiting.textContent = 'SS07 is thinking…'; $('messages').append(waiting); scrollLatest(); announce('SS07 is preparing a reply.');
   try {
-    if (previewOnly) throw Error('AI chat is not connected in this private preview. Your message has not been sent to an AI provider. Use Browse sections or visit GitHub.');
+    if (previewOnly) throw Error('AI chat is not connected in this showcase preview. Your message has not been sent to an AI provider. Use Browse sections or visit GitHub.');
     const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ messages: context() }), signal: AbortSignal.any([controller.signal, AbortSignal.timeout(35000)]) });
     const data = await response.json(); if (epoch !== currentEpoch) return;
     if (!response.ok) throw Error(data.error?.message || 'SS07 could not respond. Please retry.');
