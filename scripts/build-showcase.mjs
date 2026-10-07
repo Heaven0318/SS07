@@ -14,4 +14,4 @@ writeFileSync(resolve(dest,'preview-config.json'),JSON.stringify(publicConfig));
 // The historical sample demo is clearly labeled and also avoids nonexistent API calls when hosted.
 const demoScript = readFileSync(resolve(dest,'demo.js'),'utf8').replace('theme: initialTheme,','theme: initialTheme, previewOnly: true,');
 writeFileSync(resolve(dest,'demo.js'),demoScript);
-console.log('Built private SS07 showcase. AI backend deliberately disconnected; no secrets or database included.');
+console.log('Built SS07 static showcase. AI backend deliberately disconnected; no secrets or database included.');

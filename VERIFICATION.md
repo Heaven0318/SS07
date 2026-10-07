@@ -37,3 +37,6 @@ The home page was replaced with a simple white explanatory showcase, public GitH
 No provider credentials were present. Real AI answers, English/Filipino/Taglish behavior, grounding accuracy, live follow-ups and account/model compatibility remain **unverified**. Synthetic test responses are used only in tests and are never offered as AI answers in the production widget.
 
 No external hosting, DNS, TLS, real portfolio integration, container build, production reverse proxy or persistent hosting disk has been deployed/tested. Test the real host's CSP/frame-ancestors/origins and section IDs, verified external links, touch keyboard and selected provider before production. Public embed settings are not authentication; hard usage caps and dedicated infrastructure remain necessary. Read README for the exact single-instance deployment boundary.
+
+## 2026-10-07 delivery
+The showcase audience was changed to public at the user's explicit request. The source was restored into a separate workspace, and all 15 tests passed. The hosted static showcase has no live AI backend or provider credentials.

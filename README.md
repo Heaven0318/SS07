@@ -2,11 +2,13 @@
 
 An independent AI portfolio support assistant: Node.js API, isolated iframe chat, small public loader, and a standalone sample website. No portfolio repository or infrastructure is used. No visitor accounts, dashboard, transcript database, or runtime npm dependencies.
 
-## White showcase and private hosted preview
+## White showcase and public hosted preview
+
+The public showcase is hosted at https://ss07-portfolio-assistant.cedrickyosh-pereyra.chatgpt.site. This repository contains both that showcase and the separate Node AI backend; only the static showcase is currently hosted. Uploading this source to GitHub does not automatically deploy the AI backend.
 
 The home page now explains SS07 and showcases Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). No repository source, private data, or portfolio infrastructure was reused. Public repository language metadata is labeled as observed technology, not proficiency. The configured contact route is the GitHub profile; no personal email from the connector is included.
 
-The Sites deployment is a **private static showcase**, separate from the Node AI service. It includes the chat interface and approved section navigation. It has no AI backend connection, keys, database or paid resources. It clearly explains that no AI request is sent from this preview. The original Node API remains implemented and tested in this repository and requires separate server deployment to enable real AI replies. Do not embed this private preview into a public portfolio.
+The Sites deployment is a **public static showcase**, separate from the Node AI service. It includes the chat interface and approved section navigation. It has no AI backend connection, keys, database or paid resources. It clearly explains that no AI request is sent from this preview. The original Node API remains implemented and tested in this repository and requires separate server deployment to enable real AI replies. Deploy the Node service and configure its host origins before embedding the working assistant into a portfolio.
 
 `npm run build:showcase` creates only public assets in `dist/`. The build marks the hosted iframe as `previewOnly`, ships an explicit public configuration file and excludes server code, `.env`, Git, logs and usage data. `showcase.config.json` holds the preview origin; `.openai/hosting.json` records its Sites identity. Use the Sites workflow to publish future showcase edits. Never move Node/SQLite into ephemeral static hosting. Opening `npm start` locally uses the actual Node backend (not preview mode), with the white page at `/` and the historical sample demo at `/demo.html`.
 
