@@ -18,11 +18,11 @@ export function settings(env = process.env) {
   if (env.NODE_ENV === 'production' && (secret.length < 32 || !env.IP_HASH_SECRET || !publicOrigin.startsWith('https://') || hosts.some(x => !x.startsWith('https://')))) throw Error('Production requires HTTPS origins and IP_HASH_SECRET (32+ characters)');
   const provider = env.AI_PROVIDER || 'gemini';
   if (!['gemini','openai'].includes(provider)) throw Error('Invalid AI_PROVIDER');
-  return { publicOrigin, hosts, secret, provider, key: (provider === 'gemini' ? env.GEMINI_API_KEY : env.OPENAI_API_KEY) || '', model: provider === 'gemini' ? env.GEMINI_MODEL || 'gemini-2.5-flash-lite' : env.OPENAI_MODEL || 'gpt-4.1-mini',
+  return { publicOrigin, hosts, secret, provider, key: (provider === 'gemini' ? env.GEMINI_API_KEY : env.OPENAI_API_KEY) || '', model: provider === 'gemini' ? env.GEMINI_MODEL || 'gemini-3.8-flash' : env.OPENAI_MODEL || 'gpt-4.1-mini',
     dataDir: resolve(root, env.DATA_DIR || 'data'), port: num('PORT', 3000, 65535),
     dailyRequests: num('DAILY_REQUEST_CAP', 100, 100000), dailyTokens: num('DAILY_TOKEN_BUDGET', 200000, 100000000),
     rate: num('RATE_PER_MINUTE', 6, 1000), globalRate: num('GLOBAL_PER_MINUTE', 30, 10000),
-    concurrent: num('MAX_CONCURRENT', 3, 100), timeout: num('PROVIDER_TIMEOUT_MS', 25000, 60000), trustProxy: env.TRUST_PROXY === 'true' };
+    concurrent: num('MAX_CONCURRENT', 3, 100), timeout: num('PROVIDER_TIMEOUT_MS', 60000, 60000), trustProxy: env.TRUST_PROXY === 'true' };
 }
 export function safeUrl(value) {
   try { const u = new URL(value); return ['https:', 'http:', 'mailto:'].includes(u.protocol) && !u.username && !u.password ? u.href : null; } catch { return null; }

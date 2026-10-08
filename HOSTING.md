@@ -14,7 +14,7 @@ Configure secrets using Sites runtime environment variables, never in the hostin
 
 - `GEMINI_API_KEY`: SS07-only Google free-tier provider key, marked secret.
 - `IP_HASH_SECRET`: random 32+ characters, marked secret.
-- `AI_PROVIDER`: gemini (default), with `GEMINI_MODEL=gemini-2.5-flash-lite`. OpenAI is an explicitly selected alternative only; no automatic fallback.
+- `AI_PROVIDER`: gemini (default), with `GEMINI_MODEL=gemini-3.8-flash`. OpenAI is an explicitly selected alternative only; no automatic fallback.
 - `HOST_ORIGINS`: exact HTTPS origins permitted to embed the widget, including the SS07 origin.
 - Optional caps: `DAILY_REQUEST_CAP`, `DAILY_TOKEN_BUDGET`, `RATE_PER_MINUTE`, `GLOBAL_PER_MINUTE`, `MAX_CONCURRENT`, `PROVIDER_TIMEOUT_MS`.
 

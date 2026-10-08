@@ -11,7 +11,7 @@ export function configFrom(env) {
   const hosts=(env.HOST_ORIGINS||origin).split(',').map(x=>x.trim());
   if(hosts.some(x=>{try {return new URL(x).origin!==x||!x.startsWith('https://');}catch{return true;}})) throw Error('Invalid host origins');
   const provider=env.AI_PROVIDER||'gemini';if(!['gemini','openai'].includes(provider))throw Error('Invalid provider');
-  return {hosts,provider,key:(provider==='gemini'?env.GEMINI_API_KEY:env.OPENAI_API_KEY)||'',secret:env.IP_HASH_SECRET||'',model:provider==='gemini'?env.GEMINI_MODEL||'gemini-2.5-flash-lite':env.OPENAI_MODEL||'gpt-4.1-mini',rate:num('RATE_PER_MINUTE',6,1000),globalRate:num('GLOBAL_PER_MINUTE',30,10000),dailyRequests:num('DAILY_REQUEST_CAP',100,100000),dailyTokens:num('DAILY_TOKEN_BUDGET',200000,100000000),concurrent:num('MAX_CONCURRENT',3,100),timeout:num('PROVIDER_TIMEOUT_MS',25000,60000)};
+  return {hosts,provider,key:(provider==='gemini'?env.GEMINI_API_KEY:env.OPENAI_API_KEY)||'',secret:env.IP_HASH_SECRET||'',model:provider==='gemini'?env.GEMINI_MODEL||'gemini-3.8-flash':env.OPENAI_MODEL||'gpt-4.1-mini',rate:num('RATE_PER_MINUTE',6,1000),globalRate:num('GLOBAL_PER_MINUTE',30,10000),dailyRequests:num('DAILY_REQUEST_CAP',100,100000),dailyTokens:num('DAILY_TOKEN_BUDGET',200000,100000000),concurrent:num('MAX_CONCURRENT',3,100),timeout:num('PROVIDER_TIMEOUT_MS',60000,60000)};
 }
 export async function readBody(request) {
   if(!/^application\/json(?:;|$)/i.test(request.headers.get('content-type')||'')) throw fail(415,'content_type','Use application/json.');

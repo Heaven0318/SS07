@@ -22,7 +22,7 @@ npm start
 
 Open http://localhost:3000. `npm run dev` restarts the server when files change; reload the browser after frontend edits. `npm test` runs backend and browser-script behavioral tests. No npm install or frontend build is required.
 
-With no `GEMINI_API_KEY`, the application runs but honestly displays AI unavailability. It does not simulate AI replies. Configure the key in the ignored `.env` file or hosting secret manager; never paste a key into chat. Use a new provider project/key exclusively for SS07. AI_PROVIDER defaults to gemini; GEMINI_MODEL defaults to gemini-2.5-flash-lite. OpenAI requires explicit AI_PROVIDER=openai and its own key/model. Account access and quotas must be verified with the provider. The small adapter is `server/provider.mjs`.
+With no `GEMINI_API_KEY`, the application runs but honestly displays AI unavailability. It does not simulate AI replies. Configure the key in the ignored `.env` file or hosting secret manager; never paste a key into chat. Use a new provider project/key exclusively for SS07. AI_PROVIDER defaults to gemini; GEMINI_MODEL defaults to gemini-3.8-flash. OpenAI requires explicit AI_PROVIDER=openai and its own key/model. Account access and quotas must be verified with the provider. The small adapter is `server/provider.mjs`.
 
 The optional OpenAI adapter uses the [OpenAI Responses API](https://developers.openai.com/api/reference/typescript/resources/responses/methods/create), structured JSON, `store: false`, no tools, a bounded output allowance and a provider timeout. Live provider testing requires a configured key.
 
@@ -103,7 +103,7 @@ On a host with a Node runtime and dedicated persistent directory, use `npm start
 | API conversation validation | 1–12 messages, must end in user (alternation means at most 11) |
 | Visible AI reply | 3,500 characters |
 | Provider output | 700 tokens, including any model reasoning |
-| Provider timeout / browser timeout | 25 / 35 seconds |
+| Provider timeout / browser timeout | 60 / 75 seconds |
 | Per-IP requests per minute | 6 |
 | Global requests per minute | 30 |
 | In-flight provider calls | 3 per process |
