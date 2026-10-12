@@ -19,7 +19,7 @@ async function readBody(req) {
 export function createApp(config = settings(), { provider = callProvider, logger = x => console.log(JSON.stringify(x)) } = {}) {
   const knowledge = loadKnowledge(), limits = new Limits(config); let active = 0;
   const publicConfig = { sample: knowledge.sample, navigation: knowledge.navigation, hostOrigins: config.hosts,
-    links: [...knowledge.projects, knowledge.contact].filter(x => x.url).map(x => ({ label: x.name || 'Contact', url: safeUrl(x.url) })) };
+    links: [...knowledge.projects, ...(knowledge.contact.links || [knowledge.contact])].filter(x => x.url).map(x => ({ label: x.name || 'Contact', url: safeUrl(x.url) })) };
   const server = createServer(async (req, res) => {
     const id = randomUUID(), started = Date.now(); let code = 'ok';
     const send = (status, body) => { if (!res.destroyed) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(body)); } };

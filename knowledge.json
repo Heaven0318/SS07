@@ -4,20 +4,98 @@
     "name": "Cedrick Yosh Pereyra",
     "introduction": "Cedrick Yosh Pereyra is a student developer. His public GitHub profile says he builds interactive websites, explores ideas, and learns as he goes.",
     "background": "Public GitHub account: Heaven0318. Source: https://github.com/Heaven0318, verified 2026-10-06.",
-    "skills": ["HTML — observed in public repository language metadata", "CSS — observed in public repository language metadata", "JavaScript — observed in public repository language metadata", "TypeScript — observed in public repository language metadata. These metadata labels do not establish proficiency or years of experience."]
+    "skills": [
+      "HTML — observed in public repository language metadata",
+      "CSS — observed in public repository language metadata",
+      "JavaScript — observed in public repository language metadata",
+      "TypeScript — observed in public repository language metadata. These metadata labels do not establish proficiency or years of experience."
+    ]
   },
   "projects": [
-    {"name":"Heaven’s Space","description":"GitHub description: my personal online portfolio. Primary language metadata: JavaScript.","url":"https://github.com/Heaven0318/heavens-space","navigationId":"projects"},
-    {"name":"WebSteps","description":"GitHub description: Interactive HTML, CSS, and JavaScript learning roadmap. Primary language metadata: TypeScript.","url":"https://github.com/Heaven0318/WebSteps","navigationId":"projects"},
-    {"name":"Compass Project","description":"GitHub description: simple html compass. Primary language metadata: HTML.","url":"https://github.com/Heaven0318/Compass-Project","navigationId":"projects"},
-    {"name":"Earrings Project 2","description":"Public repository with CSS as its primary language metadata. No repository description is supplied; further features are unconfirmed.","url":"https://github.com/Heaven0318/earrings-project-2","navigationId":"projects"},
-    {"name":"Dropshipping Project","description":"GitHub description: dropshipping website draft. Primary language metadata: HTML. Services or commerce functionality are not verified.","url":"https://github.com/Heaven0318/Dropshipping-project","navigationId":"projects"}
+    {
+      "name": "Heaven’s Space",
+      "description": "GitHub description: my personal online portfolio. Primary language metadata: JavaScript.",
+      "url": "https://github.com/Heaven0318/heavens-space",
+      "navigationId": "projects"
+    },
+    {
+      "name": "WebSteps",
+      "description": "GitHub description: Interactive HTML, CSS, and JavaScript learning roadmap. Primary language metadata: TypeScript.",
+      "url": "https://github.com/Heaven0318/WebSteps",
+      "navigationId": "projects"
+    },
+    {
+      "name": "Compass Project",
+      "description": "GitHub description: simple html compass. Primary language metadata: HTML.",
+      "url": "https://github.com/Heaven0318/Compass-Project",
+      "navigationId": "projects"
+    },
+    {
+      "name": "Earrings Project 2",
+      "description": "Public repository with CSS as its primary language metadata. No repository description is supplied; further features are unconfirmed.",
+      "url": "https://github.com/Heaven0318/earrings-project-2",
+      "navigationId": "projects"
+    },
+    {
+      "name": "Dropshipping Project",
+      "description": "GitHub description: dropshipping website draft. Primary language metadata: HTML. Services or commerce functionality are not verified.",
+      "url": "https://github.com/Heaven0318/Dropshipping-project",
+      "navigationId": "projects"
+    }
   ],
   "faqs": [
-    {"question":"Is the developer available for work?","answer":"Availability has not been confirmed. The configured public route is the GitHub profile."},
-    {"question":"Can SS07 send a message to the developer?","answer":"No. SS07 provides public links and section navigation. Message sending is not implemented."},
-    {"question":"Where does this information come from?","answer":"A manually verified snapshot of public GitHub profile and repository metadata from 2026-10-06. No private repositories or data were used."}
+    {
+      "question": "Is the developer available for work?",
+      "answer": "Availability has not been confirmed. Ask the developer using the configured email or social profiles."
+    },
+    {
+      "question": "Can SS07 send a message to the developer?",
+      "answer": "No. SS07 provides public links and section navigation. Message sending is not implemented."
+    },
+    {
+      "question": "Where does this information come from?",
+      "answer": "A manually verified snapshot of public GitHub profile and repository metadata from 2026-10-06. No private repositories or data were used."
+    }
   ],
-  "contact":{"description":"Visit the public GitHub profile. No direct email address, phone number or messaging service has been configured.","url":"https://github.com/Heaven0318","navigationId":"contact"},
-  "navigation":[{"id":"about","label":"About the developer"},{"id":"projects","label":"Explore projects"},{"id":"skills","label":"View technologies"},{"id":"contact","label":"GitHub profile"}]
+  "contact": {
+    "description": "You can contact me by email at cedrickyoshpereyra@gmail.com, or visit my Instagram, Facebook, and LinkedIn profiles. These routes were provided by the developer on 2026-10-12. SS07 cannot send messages on your behalf.",
+    "url": "mailto:cedrickyoshpereyra@gmail.com",
+    "navigationId": "contact",
+    "links": [
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/07.heaven_/"
+      },
+      {
+        "name": "Facebook",
+        "url": "https://www.facebook.com/cedrickyosh.pereyra"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/cedrick-yosh-pereyra-ba2676441"
+      },
+      {
+        "name": "Email",
+        "url": "mailto:cedrickyoshpereyra@gmail.com"
+      }
+    ]
+  },
+  "navigation": [
+    {
+      "id": "about",
+      "label": "About the developer"
+    },
+    {
+      "id": "projects",
+      "label": "Explore projects"
+    },
+    {
+      "id": "skills",
+      "label": "View technologies"
+    },
+    {
+      "id": "contact",
+      "label": "Contact the developer"
+    }
+  ]
 }

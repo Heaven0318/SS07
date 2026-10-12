@@ -38,7 +38,7 @@ export default {
         if(request.method==='OPTIONS'){headers.set('Access-Control-Allow-Methods','GET, POST');headers.set('Access-Control-Allow-Headers','Content-Type');return new Response(null,{status:204,headers});}
         const ready=Boolean(config.key&&config.secret.length>=32&&env.DB);
         if(path==='/api/status'&&request.method==='GET')return json(200,{available:ready,message:ready?'Ready':'SS07 is unavailable: server credentials or usage storage are not configured.'});
-        if(path==='/api/config'&&request.method==='GET')return json(200,{sample:knowledge.sample,navigation:knowledge.navigation,hostOrigins:config.hosts,links:[...knowledge.projects,knowledge.contact].filter(x=>x.url).map(x=>({label:x.name||'Contact',url:x.url}))});
+        if(path==='/api/config'&&request.method==='GET')return json(200,{sample:knowledge.sample,navigation:knowledge.navigation,hostOrigins:config.hosts,links:[...knowledge.projects,...(knowledge.contact.links||[knowledge.contact])].filter(x=>x.url).map(x=>({label:x.name||'Contact',url:x.url}))});
         if(path!=='/api/chat'||request.method!=='POST')throw fail(404,'not_found','Not found.');
         const messages=validate(await readBody(request));
         if(!ready)throw fail(503,'not_configured','SS07 is unavailable because its server configuration is incomplete. Please use the contact section.');

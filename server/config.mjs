@@ -35,7 +35,7 @@ export function loadKnowledge() {
     if (!/^[a-z][a-z0-9-]{0,39}$/.test(n.id) || typeof n.label !== 'string' || ids.has(n.id)) throw Error('Invalid navigation configuration');
     ids.add(n.id);
   }
-  for (const item of [...k.projects, k.contact]) {
+  for (const item of [...k.projects, k.contact, ...(k.contact.links || [])]) {
     if (item.url && !safeUrl(item.url)) throw Error('Unsafe knowledge URL');
     if (item.navigationId && !ids.has(item.navigationId)) throw Error('Unknown navigation ID');
   }
