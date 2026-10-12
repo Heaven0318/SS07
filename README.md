@@ -6,9 +6,28 @@ I built SS07 to help visitors explore my portfolio, learn about my projects and 
 
 The public website is hosted at https://ss07-portfolio-assistant.cedrickyosh-pereyra.chatgpt.site. The Sites deployment now includes a Worker API and a dedicated D1 usage database, with the existing iframe widget and white showcase. See [HOSTING.md](HOSTING.md) for the hosted architecture, source/build workflow, environment variables and data controls.
 
-The showcase uses Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). Public language metadata is observed technology, not proficiency. The contact route is GitHub; no private account email or portfolio infrastructure was reused.
+The showcase uses Cedrick Yosh Pereyra's public GitHub profile and five public repositories from a snapshot verified on 2026-10-06. The account is [Heaven0318](https://github.com/Heaven0318). Public language metadata is observed technology, not proficiency. I supplied my public email and social profiles separately; no private account data or portfolio infrastructure was reused.
 
-SS07 defaults to Gemini's free API tier. Set an SS07-only GEMINI_API_KEY securely and keep its Google project on the free tier. Provider quotas and account eligibility apply. No automatic paid fallback exists, and no successful AI response is simulated. Configuration readiness does not verify provider access.
+SS07 defaults to Gemini's free API tier. Set an SS07-only GEMINI_API_KEY securely and keep its Google project on the free tier. Provider quotas and account eligibility apply. No automatic paid fallback exists, and no successful AI response is simulated. A real reply from the deployed Gemini backend was verified on October 8, 2026. Configuration readiness alone does not verify provider access, and free-tier availability remains subject to Google’s quotas.
+
+## Contact me
+
+- [Email](mailto:cedrickyoshpereyra@gmail.com): cedrickyoshpereyra@gmail.com
+- [Instagram](https://www.instagram.com/07.heaven_/)
+- [Facebook](https://www.facebook.com/cedrickyosh.pereyra)
+- [LinkedIn](https://www.linkedin.com/in/cedrick-yosh-pereyra-ba2676441)
+- [GitHub](https://github.com/Heaven0318)
+
+I added these contact routes to the showcase and SS07’s trusted knowledge. SS07 can guide visitors to them; it cannot send messages on anyone’s behalf.
+
+## What SS07 includes
+
+- A floating iframe widget with suggested questions, follow-ups, Retry, and Start Over.
+- English, Filipino, and Taglish replies grounded in my configured portfolio information.
+- Host theme synchronization, approved section navigation, and safe configured links.
+- A standalone white showcase and a separate sample demo at /demo.html.
+- Server-only AI credentials, input validation, rate limits, and daily usage caps.
+- Page-session conversation memory, with no saved transcripts or visitor accounts.
 
 ## Run locally
 
@@ -30,11 +49,11 @@ The optional OpenAI adapter uses the [OpenAI Responses API](https://developers.o
 
 Edit `knowledge.json`, then restart the server. It currently contains verified public GitHub profile/repository metadata with `sample: false`. Update the introduction, background, skills, descriptions, URLs, FAQs and contact route only with verified public information. If experimenting with placeholders, use `sample: true` so SS07 labels them. The historical `/demo.html` remains a separate sample portfolio; editing knowledge does not automatically rewrite that page. The current white showcase at `/` contains the actual public GitHub snapshot.
 
-Each project may have `url` (absolute verified HTTP(S) URL or null) and `navigationId` (a configured ID or null). Contact may use `mailto:` or a verified HTTP(S) URL. No email sending is implemented. Links are configured by you, validated on startup and rendered as safe external anchors with `noopener noreferrer`. Model output is plain text; model-produced URLs/HTML are never made executable or automatically linked. Navigation IDs and labels belong in `knowledge.navigation`; actual section IDs belong only in the host integration.
+Each project may have `url` (absolute verified HTTP(S) URL or null) and `navigationId` (a configured ID or null). Contact may use `mailto:` or a verified HTTP(S) URL. Add multiple routes to `contact.links` as objects with `name` and `url`; these are also exposed as safe widget links. No email sending is implemented. Links are configured by you, validated on startup and rendered as safe external anchors with `noopener noreferrer`. Model output is plain text; model-produced URLs/HTML are never made executable or automatically linked. Navigation IDs and labels belong in `knowledge.navigation`; actual section IDs belong only in the host integration.
 
 ## Embed in a portfolio
 
-Deploy SS07 first and replace `https://ss07.example.com` with its real independent service URL. This is a placeholder, not a deployed address. Copy the following immediately before `</body>`, replacing section IDs and the initial theme:
+The snippet below uses my deployed SS07 service. Before embedding it, add your portfolio’s exact origin to the SS07 server’s `HOST_ORIGINS`. If hosting your own copy, replace the service URL with your independent deployment. Copy the following immediately before `</body>`, replacing section IDs and the initial theme:
 
 ```html
 <script>
@@ -48,7 +67,7 @@ Deploy SS07 first and replace `https://ss07.example.com` with its real independe
     }
   };
 </script>
-<script defer src="https://ss07.example.com/loader.js"></script>
+<script defer src="https://ss07-portfolio-assistant.cedrickyosh-pereyra.chatgpt.site/loader.js"></script>
 ```
 
 A copyable version is also in `embed-snippet.html`. Public configuration is not secret. Omit `theme` to initially follow system theme. Connect the portfolio's existing theme handler:
@@ -120,8 +139,8 @@ Visitor messages and AI replies exist only in iframe memory, and are sent over H
 
 `data/ss07-usage.sqlite` stores daily aggregate requests, reserved/actual token counts, and short-lived rate buckets keyed by a daily salted HMAC of IP addresses. Raw IPs and conversation text are not saved by the application. Expired minute buckets and daily rows older than 31 days are pruned on the next validated chat attempt. Hosting/proxy platforms may separately retain access logs; disable request bodies, query logging and unnecessary IP retention there. Operational app logs include random request ID, status/error code, elapsed time and token count, never keys, messages or provider error bodies.
 
-`store: false` requests that the provider not retain response objects for retrieval; it does not assert zero provider retention. Review your provider account's data controls and retention terms. The widget discloses AI processing and asks visitors to avoid sensitive information. No promise of unlimited memory or human handoff is made.
+The optional OpenAI adapter uses `store: false`, which does not assert zero provider retention. Gemini free-tier messages may be used to improve Google’s products; review the [Gemini data and pricing terms](https://ai.google.dev/gemini-api/docs/pricing) before sharing information. The widget discloses AI processing and asks visitors to avoid sensitive information. No promise of unlimited memory or human handoff is made.
 
 ## Verification
 
-See `VERIFICATION.md` for the checks performed and limitations. Tests inject synthetic responses only inside test code; production always uses the real adapter. Browser-script unit tests validate state transitions and messaging; they are distinct from real browser layout checks. No live AI answer was verified because credentials were absent.
+See `VERIFICATION.md` for the checks performed and limitations. Tests inject synthetic responses only inside test code; production always uses the real adapter. Browser-script unit tests validate state transitions and messaging; they are distinct from real browser layout checks. All 19 automated tests passed for the latest functional changes. A real deployed Gemini reply was verified on October 8, 2026, and all four new contact routes were verified in the live page and widget configuration on October 12, 2026. Repeat provider checks after changing credentials or models. Visual browser checks during the October 8 publication were blocked by a local sandbox startup error.
