@@ -17,7 +17,7 @@
   style.rel = 'stylesheet';
   style.href = source + '/loader.css';
 
-  const launcher = document.createElement('button'); const logo = document.createElement('img'); logo.src = source + '/ss07-logo.jpg'; logo.alt = ''; logo.setAttribute('aria-hidden','true'); const label = document.createElement('span'); label.textContent = 'Ask SS07'; launcher.append(logo, label); launcher.setAttribute('aria-expanded','false'); launcher.setAttribute('aria-label','Open SS07 portfolio assistant');
+  const launcher = document.createElement('button'); launcher.textContent = '✦  Ask SS07'; launcher.setAttribute('aria-expanded','false'); launcher.setAttribute('aria-label','Open SS07 portfolio assistant');
   const frame = document.createElement('iframe'); frame.title = 'SS07 AI portfolio assistant'; frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox'); frame.referrerPolicy = 'no-referrer';
   frame.style.display = 'none';
   frame.src = `${source}/widget.html?hostOrigin=${encodeURIComponent(location.origin)}${config.previewOnly === true ? '&previewOnly=true' : ''}`;

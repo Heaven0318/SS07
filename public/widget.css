@@ -4,5 +4,3 @@
 #browse{padding:0 18px 8px;font-size:12px;flex-shrink:0}summary{cursor:pointer;color:var(--muted);min-height:28px}summary:focus-visible{outline:3px solid #3985da;outline-offset:2px}#browse[open]{max-height:150px;overflow:auto}@media(max-height:480px){#browse{display:none}}
 #error{flex-shrink:0}@media(max-height:480px){#messages{min-height:0;padding:8px 12px}textarea{height:48px}#error{max-height:105px}}
 
-
-.mark{background:transparent;width:48px}.mark .ss07-logo{width:48px;height:32px;object-fit:contain;border-radius:5px}
