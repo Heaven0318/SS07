@@ -2,7 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const dest = resolve(root, 'dist'); mkdirSync(dest, { recursive:true });
-const files = ['index.html','showcase.js','showcase.css','demo.html','demo.js','demo.css','loader.js','loader.css','widget.html','widget.js','widget.css'];
+const files = ['index.html','showcase.js','showcase.css','demo.html','demo.js','demo.css','loader.js','loader.css','widget.html','widget.js','widget.css','ss07-logo.jpg'];
 for (const file of files) copyFileSync(resolve(root,'public',file),resolve(dest,file));
 let index = readFileSync(resolve(dest,'index.html'),'utf8');
 index = index.replace('data-ss07-preview="false"','data-ss07-preview="true"');

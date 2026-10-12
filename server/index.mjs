@@ -54,11 +54,11 @@ export function createApp(config = settings(), { provider = callProvider, logger
         return;
       }
       if (req.method !== 'GET' && req.method !== 'HEAD') throw fail(405, 'method', 'Method not allowed.');
-      const files = { '/': 'index.html', '/demo.html': 'demo.html', '/showcase.js': 'showcase.js', '/showcase.css': 'showcase.css', '/demo.js': 'demo.js', '/demo.css': 'demo.css', '/loader.js': 'loader.js', '/loader.css': 'loader.css', '/widget.html': 'widget.html', '/widget.js': 'widget.js', '/widget.css': 'widget.css' };
+      const files = { '/': 'index.html', '/ss07-logo.jpg': 'ss07-logo.jpg', '/demo.html': 'demo.html', '/showcase.js': 'showcase.js', '/showcase.css': 'showcase.css', '/demo.js': 'demo.js', '/demo.css': 'demo.css', '/loader.js': 'loader.js', '/loader.css': 'loader.css', '/widget.html': 'widget.html', '/widget.js': 'widget.js', '/widget.css': 'widget.css' };
       if (!files[path]) throw fail(404, 'not_found', 'Not found.');
-      const ext = files[path].split('.').at(-1), type = { html: 'text/html', js: 'text/javascript', css: 'text/css' }[ext];
+      const ext = files[path].split('.').at(-1), type = { html: 'text/html', js: 'text/javascript', css: 'text/css', jpg: 'image/jpeg' }[ext];
       const bytes = await readFile(resolve(root, 'public', files[path]));
-      res.writeHead(200, { 'Content-Type': `${type}; charset=utf-8`, 'Cache-Control': 'no-cache' }); res.end(req.method === 'HEAD' ? undefined : bytes);
+      res.writeHead(200, { 'Content-Type': type.startsWith('image/') ? type : `${type}; charset=utf-8`, 'Cache-Control': 'no-cache' }); res.end(req.method === 'HEAD' ? undefined : bytes);
     } catch (e) {
       code = ['TimeoutError','AbortError'].includes(e.name) ? 'timeout' : typeof e.code === 'string' ? e.code : 'internal';
       if (e.retry) res.setHeader('Retry-After', e.retry);

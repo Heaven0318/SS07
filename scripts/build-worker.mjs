@@ -5,6 +5,7 @@ if(dest!==resolve(root,'dist'))throw Error('Invalid build path');
 rmSync(dest,{recursive:true,force:true});mkdirSync(resolve(dest,'server'),{recursive:true});mkdirSync(resolve(dest,'.openai'),{recursive:true});
 const files=['index.html','showcase.js','showcase.css','demo.html','demo.js','demo.css','loader.js','loader.css','widget.html','widget.js','widget.css'];
 const assets=Object.fromEntries(files.map(file=>['/'+(file==='index.html'?'':file),{type:({html:'text/html',js:'text/javascript',css:'text/css'})[file.split('.').at(-1)],body:readFileSync(resolve(root,'public',file),'utf8')}]));
+assets['/ss07-logo.jpg']={type:'image/jpeg',encoding:'base64',body:readFileSync(resolve(root,'public/ss07-logo.jpg')).toString('base64')};
 let code=['server/provider.mjs','worker/limits.mjs','worker/index.mjs'].map(file=>readFileSync(resolve(root,file),'utf8').replace(/^import .*;\r?\n/gm,'').replace(/^export (async function|function|const) /gm,'$1 ')).join('\n');
 // Validation's fail helper has its own scope to avoid colliding with Worker helpers.
 const validation=readFileSync(resolve(root,'server/validation.mjs'),'utf8').replace('export function validate','function validate');

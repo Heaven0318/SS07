@@ -53,8 +53,8 @@ export default {
       }
       if(!['GET','HEAD'].includes(request.method))throw fail(405,'method','Method not allowed.');
       const asset=assets[path];if(!asset)throw fail(404,'not_found','Not found.');
-      headers.set('Content-Type',asset.type+'; charset=utf-8');headers.set('Cache-Control','no-cache');
-      return new Response(request.method==='HEAD'?null:asset.body,{headers});
+      headers.set('Content-Type',asset.type.startsWith('image/')?asset.type:asset.type+'; charset=utf-8');headers.set('Cache-Control','no-cache');
+      return new Response(request.method==='HEAD'?null:asset.encoding==='base64'?Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0)):asset.body,{headers});
     } catch(error) {
       const code=['AbortError','TimeoutError'].includes(error.name)?'timeout':error.code||'internal';const status=error.status||(code==='timeout'?504:500);
       if(error.retry)headers.set('Retry-After',String(error.retry));
